@@ -56,7 +56,20 @@ header{
     margin-right: 20px;
 }
 
+table{
+    width: inherit;
+    height: inherit;
+}
+
 table td{
-    height: 35px;
-    max-height: 50px;
+    width: 40px;
+    height: 20px;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+}
+
+table td:hover{
+    color: white;
+    background-color: rgb(99, 99, 99);
 }
