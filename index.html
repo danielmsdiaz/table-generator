@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="assets/style.css">
+    <title>Gerador de tables</title>
+</head>
+<body>
+    <header>
+    </header>
+
+    <section>
+        <div class="container">
+            <div class="inputs-side">
+                <h1>Gerador de tabelas</h1>
+                <h3>Preencha os campos abaixo p/ gerar sua tabela:</h3>
+                <div class="column-inputs">
+                    <label for="number-rows">Numero de linhas:</label>
+                    <select name="number-rows" id="number-rows">
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                    </select>
+                    <div class="textNodeRow">
+
+                    </div>
+
+                    <label for="number-columns">Numero de colunas:</label>
+                    <select name="number-columns" id="number-columns">
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                    </select>
+                    <div class="textNodeColumn">
+                        
+                    </div>
+                    <button onclick="gerarTable()" type="submit">Gerar tabela</button>
+                </div>
+            </div>
+            <div class="table-side">
+                <div class="container tablearea">
+                </div>
+            </div>
+        </div>
+    </section>
+
+</body>
+<script src="assets/scripts.js" type="text/javascript"></script>
+</html>

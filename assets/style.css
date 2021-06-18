@@ -1,0 +1,51 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header{
+    background-color: red;
+    height: 120px;
+}
+
+.container{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 30px;
+}
+
+.container div{
+    padding-top: 20px;
+}
+
+.inputs-side{
+    flex: 1;
+}
+
+.inputs-side h1, h3{
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.column-inputs{
+    display: flex;
+    flex-direction: column;
+}
+
+.column-inputs button {
+    margin-top: 20px;
+    width: 100px;
+    height: 40px;
+}
+
+.column-inputs select {
+    width: 200px;
+}
+
+.table-side{
+    flex: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
