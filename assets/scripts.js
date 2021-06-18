@@ -50,11 +50,16 @@ function gerarTable(){
     let linhas = document.getElementById("number-rows").value;
     let colunas = document.getElementById("number-columns").value;
     let tipo = document.querySelector('input[name="tipo"]:checked').value;
-    let intervalo = document.querySelector('input[name="inter"]:checked').value;
-    tableCreate(linhas, colunas, tipo, intervalo);
+    if(tipo == "s"){
+        let intervalo = document.querySelector('input[name="inter"]:checked').value;
+        tableCreate(linhas, colunas, tipo, intervalo);
+    }
+    else{
+        tableCreate(linhas, colunas, tipo);
+    }
 }
 
-function tableCreate(linhas, colunas, tipo, intervalo) {
+function tableCreate(linhas, colunas, tipo, intervalo = null) {
     let area = document.getElementsByClassName('tablearea')[0];
     let tbl = document.createElement('table');
 
@@ -142,16 +147,29 @@ function preencherTabela(elemento, intervalo){
 function apagarTabela(){
     let area = document.getElementsByClassName('tablearea')[0];
     if(area.hasChildNodes()){
-        area.removeChild(area.childNodes[0]);
+        for (let i = 0; i < area.childNodes.length; i++) {
+            if (area.childNodes[i].className == "table") {
+              area.removeChild(area.childNodes[i]);
+            }        
+        }
     }
 }
   
 function masterEventHandler(){
     let celulaHidden = document.getElementById('celula-clicada');
-    celulaHidden.setAttribute("linha", this.parentNode.rowIndex);
-    celulaHidden.setAttribute("coluna", this.cellIndex);
-
+    let linha = this.parentNode.rowIndex;
+    let coluna = this.cellIndex;
     let areaEdit = document.getElementsByClassName('edit-cell')[0];
+
+    if(linha == 0 && coluna == 0){
+        areaEdit.style.display = "none";
+        alert("Não é possivel editar essa célula");
+        return;
+    }
+
+    celulaHidden.setAttribute("linha", linha);
+    celulaHidden.setAttribute("coluna", coluna);
+
     areaEdit.style.display = "block";
     let texto = this.innerHTML;
     let inputTexto = document.getElementById('text-cell');
