@@ -14,6 +14,7 @@
     </header>
 
     <section>
+        <input hidden id="celula-clicada" linha="" coluna="" type="text">
         <div class="container">
             <div class="inputs-side">
                 <h1>Gerador de tabelas</h1>
@@ -51,6 +52,11 @@
             </div>
             <div class="table-side">
                 <div class="tablearea">
+                    <div style="display: none;" class="edit-cell">
+                        <label for="number-columns">Coluna x:</label>
+                        <input required type="text" id="text-cell" name="text-cell" min="2" max="24">
+                        <button type="submit" onclick="salvarCelula()">Salvar</button>
+                    </div>
                 </div>
             </div>
         </div>

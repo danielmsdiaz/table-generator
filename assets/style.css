@@ -71,5 +71,9 @@ table td{
 
 table td:hover{
     color: white;
-    background-color: rgb(99, 99, 99);
+    background-color: rgb(175, 175, 175);
+}
+
+.edit-cell{
+    margin-bottom: 10px;
 }

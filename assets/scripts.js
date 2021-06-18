@@ -64,6 +64,7 @@ function tableCreate(linhas, colunas, tipo, intervalo) {
         let tr = document.createElement('tr');
         for(let j = 0; j < (parseInt(colunas) + 1); j++){
             let td = document.createElement('td');
+            td.addEventListener('click', masterEventHandler, false);
             tr.appendChild(td);
         }
         tbl.appendChild(tr); 
@@ -100,7 +101,7 @@ function preencherTabela(elemento, intervalo){
                 else{
                     var d = new Date;
                     d.setHours(0,0,0,0);
-                    for(let k = 0; k < parseInt(i) - 1; k++){
+                    for(let j = 0; j < parseInt(i) - 1; j++){
                         d = new Date(d.getTime() + 50*60000);
                     }
                     x[0].innerHTML = d.getHours().toString().padStart(2, '0') + ":" + d.getMinutes().toString().padEnd(2, "0");
@@ -119,7 +120,7 @@ function preencherTabela(elemento, intervalo){
                 else{
                     var d = new Date;
                     d.setHours(0,0,0,0);
-                    for(let k = 0; k < parseInt(i) - 1; k++){
+                    for(let j = 0; j < parseInt(i) - 1; j++){
                         d = new Date(d.getTime() + 30*60000);
                     }
                     x[0].innerHTML = d.getHours().toString().padStart(2, '0') + ":" + d.getMinutes().toString().padEnd(2, "0");
@@ -144,5 +145,25 @@ function apagarTabela(){
         area.removeChild(area.childNodes[0]);
     }
 }
+  
+function masterEventHandler(){
+    let celulaHidden = document.getElementById('celula-clicada');
+    celulaHidden.setAttribute("linha", this.parentNode.rowIndex);
+    celulaHidden.setAttribute("coluna", this.cellIndex);
 
+    let areaEdit = document.getElementsByClassName('edit-cell')[0];
+    areaEdit.style.display = "block";
+    let texto = this.innerHTML;
+    let inputTexto = document.getElementById('text-cell');
+    inputTexto.value = texto;
+}
 
+function salvarCelula(){
+    let inputTexto = document.getElementById('text-cell').value;
+    let celulaHidden = document.getElementById('celula-clicada');
+    let linha = celulaHidden.getAttribute("linha");
+    let coluna = celulaHidden.getAttribute("coluna");
+
+    let celula = document.getElementsByClassName("table")[0].rows[linha].cells.item(coluna);
+    celula.innerHTML = inputTexto;
+}
