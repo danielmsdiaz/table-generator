@@ -21,39 +21,53 @@
                 <h3>Preencha os campos abaixo p/ gerar sua tabela:</h3>
 
                 <div class="column-inputs">
-
-                    <label for="number-rows">Numero de linhas:</label>
-                    <input type="number" id="number-rows" name="number-rows" min="2" max="24">
-
-                    <label for="number-columns">Numero de colunas:</label>
-                    <input type="number" id="number-columns" name="number-columns" min="2" max="24">
-
-                    <div class="radio-tipo">
-                        <p><b>Tipo de tabela:</b></p>
-                        <input type="radio" id="semanal" name="tipo" value="s">
-                        <label for="semanal">Semanal</label><br>
-                        <input type="radio" id="outros" name="tipo" value="o">
-                        <label for="outros">Outros</label><br>
+                    <div class="number-inputs">
+                        <div class="row-input">
+                            <label for="number-rows"><b>Numero de linhas:</b></label>
+                            <input onkeyup="validarNumber(this)" required type="number" id="number-rows" name="number-rows">
+                        </div>
+                        <div class="column-input">
+                            <label for="number-columns"><b>Numero de colunas:</b></label>
+                            <input onkeyup="validarNumber(this)" required type="number" id="number-columns" name="number-columns">
+                        </div>
                     </div>
+                    
+                    <div class="side-intervalos">
+                        <div class="radio-tipo">
+                            <p><b>Tipo de tabela:</b></p>
+                            <input type="radio" id="semanal" name="tipo" value="s">
+                            <label for="semanal">Semanal</label><br>
+                            <input type="radio" id="outros" name="tipo" value="o">
+                            <label for="outros">Outros</label><br>
+                        </div>
 
-                    <div style="display: none;" class="radio-intervalo">
-                        <p><b>Intervalos:</b></p>
-                        <input type="radio" id="60" name="inter" value="60">
-                        <label for="60">60 minutos</label><br>
-                        <input type="radio" id="50" name="inter" value="50">
-                        <label for="50">50 minutos</label><br>
-                        <input type="radio" id="30" name="inter" value="30">
-                        <label for="30">30 minutos</label><br>
+                        <div style="display: none;" class="radio-intervalo">
+                            <p><b>Intervalos:</b></p>
+                            <input type="radio" id="60" class="inter" name="inter" value="60">
+                            <label for="60">60 minutos</label><br>
+                            <input type="radio" id="50" class="inter" name="inter" value="50">
+                            <label for="50">50 minutos</label><br>
+                            <input type="radio" id="30" class="inter" name="inter" value="30">
+                            <label for="30">30 minutos</label><br>
+                        </div>
+
+                        <div style="display: none;" class="range-intervalo">
+                            <p><b>Inicio/Fim:</b></p>
+                            <input type="range" id="inicio" class="inicio" step="1" min="0" max="23">
+                            <label for="inicio">Iniciar em: </label><br>
+                            <input type="range" id="fim" class="fim" step="1" min="0" max="23">
+                            <label for="inicio">Até: </label><br>
+                        </div>
                     </div>
 
                     <button onclick="gerarTable()" type="submit">Gerar tabela</button>
                 </div>
-                
             </div>
+
             <div class="table-side">
                 <div class="tablearea">
                     <div style="display: none;" class="edit-cell">
-                        <label for="number-columns">Coluna x:</label>
+                        <label for="number-columns">Celula:</label>
                         <input required type="text" id="text-cell" name="text-cell" min="2" max="24">
                         <button type="submit" onclick="salvarCelula()">Salvar</button>
                     </div>

@@ -31,6 +31,7 @@ header{
 .column-inputs{
     display: flex;
     flex-direction: column;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 .column-inputs button {
@@ -51,9 +52,13 @@ header{
 }
 
 .tablearea{
+    padding-top: 0px;
     width: 100%;
     height: 100%;
     margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 table{
@@ -62,6 +67,8 @@ table{
 }
 
 table td{
+    max-width: 40px;
+    min-height: 65px;
     width: 40px;
     height: 20px;
     text-align: center;
@@ -76,4 +83,19 @@ table td:hover{
 
 .edit-cell{
     margin-bottom: 10px;
+}
+
+.side-intervalos{
+    display: flex;
+    flex-direction: column;
+    padding-top: 0px!important;
+}
+
+.side-intervalos p {
+    margin-bottom: 5px;
+}
+
+.number-inputs{
+    display: flex;
+    flex-direction: column;
 }

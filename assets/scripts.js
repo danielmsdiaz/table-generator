@@ -30,6 +30,73 @@
 //     }
 // }, false);
 
+function validarNumber(elemento, radio){
+    if(!document.querySelector('input[name="inter"]').checked){
+        if(elemento.value && elemento.value > 48){
+            elemento.value = ''
+            alert('Digite um valor que seja menor que 48');
+            return;
+        }
+    }
+
+    if(!document.querySelector('input[name="inter"]:checked') || !document.querySelector('input[name="inter"]:checked').checked){
+        if(elemento.value && elemento.value > 48){
+            elemento.value = ''
+            alert('Digite um valor que seja menor que 48');
+            return;
+        }
+    }
+    else{
+        let intervalo = document.querySelector('input[name="inter"]:checked').value;
+        if(intervalo == 60){
+            if(elemento.value && elemento.value > 24){
+                elemento.value = ''
+                alert('Digite um valor que seja menor ou igual a 24');
+                return;
+            }
+        }
+        else if(intervalo == 50){
+            if(elemento.value && elemento.value > 29){
+                elemento.value = ''
+                alert('Digite um valor que seja menor ou igual a 29');
+                return;
+            }
+        }
+        else{
+            if(elemento.value && elemento.value > 48){
+                elemento.value = ''
+                alert('Digite um valor que seja menor ou igual a 48');
+                return;
+            }
+        }
+    }
+
+    // if(radio && radio.checked){
+    //     let intervalo = document.querySelector('input[name="inter"]:checked').value;
+    //     if(intervalo == 60){
+    //         if(elemento.value && elemento.value > 24){
+    //             elemento.value = ''
+    //             alert('Digite um valor que seja menor ou igual a 24');
+    //             return;
+    //         }
+    //     }
+    //     else if(intervalo == 50){
+    //         if(elemento.value && elemento.value > 29){
+    //             elemento.value = ''
+    //             alert('Digite um valor que seja menor ou igual a 29');
+    //             return;
+    //         }
+    //     }
+    //     else{
+    //         if(elemento.value && elemento.value > 48){
+    //             elemento.value = ''
+    //             alert('Digite um valor que seja menor ou igual a 48');
+    //             return;
+    //         }
+    //     }
+    // }
+}
+
 document.addEventListener('input', function (event) {
 	if (event.target.id == 'semanal'){
         document.querySelector('#number-columns').value = 7;
@@ -39,6 +106,12 @@ document.addEventListener('input', function (event) {
     else if(event.target.id == 'outros'){
         document.querySelector('#number-columns').readOnly = false;
         document.querySelector('.radio-intervalo').style.display = 'none';
+        document.querySelector('.range-intervalo').style.display = 'none';
+    }
+    else if (event.target.className == "inter"){
+        document.querySelector('.range-intervalo').style.display = 'block';
+        let inputLinhas = document.querySelector('#number-rows');
+        validarNumber(inputLinhas);
     }
     else{
         return;
@@ -184,4 +257,7 @@ function salvarCelula(){
 
     let celula = document.getElementsByClassName("table")[0].rows[linha].cells.item(coluna);
     celula.innerHTML = inputTexto;
+
+    let areaEdit = document.getElementsByClassName('edit-cell')[0];
+    areaEdit.style.display = "none";
 }
