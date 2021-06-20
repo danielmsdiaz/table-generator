@@ -116,8 +116,33 @@ document.addEventListener('input', function (event) {
     }
     else if (event.target.className == "inter"){
         document.querySelector('.select-intervalo').style.display = 'block';
-        document.querySelector('#inicio').value = "ph";
-        document.querySelector('#fim').value = "ph";
+        let inicio = document.querySelector('#inicio');
+        let fim = document.querySelector('#fim');
+        inicio.value = "ph";
+        fim.value = "ph";
+        //seed select
+        if(event.target.id == 60){
+            removeAll(inicio, fim);
+            for(let i = 0; i < 24/(event.target.id/60); i++){
+                inicio.add(new Option(i.toString().padStart(2, '0') +":00", i));
+                fim.add(new Option(i.toString().padStart(2, '0') +":00", i));
+            }
+        }
+        else if(event.target.id == 50){
+            removeAll(inicio, fim);
+            for(let i = 0; i < 24/(event.target.id/60); i++){
+                inicio.add(new Option((Math.floor((event.target.id * i)/60)).toString().padStart(2, '0')+":"+((event.target.id*i)%60).toString().padEnd(2, '0'), i));
+                fim.add(new Option((Math.floor((event.target.id * i)/60)).toString().padStart(2, '0')+":"+((event.target.id*i)%60).toString().padEnd(2, '0'), i));
+            }
+        }
+        else{
+            removeAll(inicio, fim);
+            for(let i = 0; i < 24/(event.target.id/60); i++){
+                inicio.add(new Option((Math.floor((event.target.id * i)/60)).toString().padStart(2, '0')+":"+((event.target.id*i)%60).toString().padEnd(2, '0'), i));
+                fim.add(new Option((Math.floor((event.target.id * i)/60)).toString().padStart(2, '0')+":"+((event.target.id*i)%60).toString().padEnd(2, '0'), i));
+            }
+        }
+        //
         let inputLinhas = document.querySelector('#number-rows');
         validarNumber(inputLinhas);
     }
@@ -125,6 +150,15 @@ document.addEventListener('input', function (event) {
         return;
     }
 }, false);
+
+function removeAll(inicio, fim) {
+    while (inicio.options.length > 1) {
+        inicio.remove(1);
+    }
+    while (fim.options.length > 1) {
+        fim.remove(1);
+    }
+}
 
 function gerarTable(){
     apagarTabela();
