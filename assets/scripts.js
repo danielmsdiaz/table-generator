@@ -115,6 +115,8 @@ document.addEventListener('input', function (event) {
         document.querySelector('#fim').value = "ph";
     }
     else if (event.target.className == "inter"){
+        document.querySelector('#number-rows').value = '';
+        document.querySelector('#number-rows').readOnly = false;
         document.querySelector('.select-intervalo').style.display = 'block';
         let inicio = document.querySelector('#inicio');
         let fim = document.querySelector('#fim');
@@ -145,6 +147,25 @@ document.addEventListener('input', function (event) {
         //
         let inputLinhas = document.querySelector('#number-rows');
         validarNumber(inputLinhas);
+    }
+    else if (event.target.className == 'variacao'){
+        let intervalo = document.querySelector('input[name="inter"]:checked');
+        let inicio = document.querySelector('#inicio');
+        let fim = document.querySelector('#fim');
+        
+        if(inicio.value != "ph" && fim.value != "ph"){
+            if(parseInt(inicio.value) >= parseInt(fim.value)){
+                alert('O inicio não pode ser maior que o final');
+                inicio.value = "ph";
+                fim.value = "ph";
+                return;
+            }
+            else{
+                let diferenca = parseInt(fim.value) - parseInt(inicio.value);
+                document.querySelector('#number-rows').value = diferenca + 1;
+                document.querySelector('#number-rows').readOnly = true;
+            }
+        }
     }
     else{
         return;
