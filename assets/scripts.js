@@ -126,22 +126,35 @@ document.addEventListener('input', function (event) {
         if(event.target.id == 60){
             removeAll(inicio, fim);
             for(let i = 0; i < 24/(event.target.id/60); i++){
-                inicio.add(new Option(i.toString().padStart(2, '0') +":00", i));
-                fim.add(new Option(i.toString().padStart(2, '0') +":00", i));
+                let optionIni = new Option(i.toString().padStart(2, '0') +":00", i);
+                let optionFim = new Option(i.toString().padStart(2, '0') +":00", i);
+                optionIni.setAttribute("key", "i"+i);
+                optionFim.setAttribute("key", "f"+i);
+
+                inicio.add(optionIni);
+                fim.add(optionFim);
             }
         }
         else if(event.target.id == 50){
             removeAll(inicio, fim);
             for(let i = 0; i < 24/(event.target.id/60); i++){
-                inicio.add(new Option((Math.floor((event.target.id * i)/60)).toString().padStart(2, '0')+":"+((event.target.id*i)%60).toString().padEnd(2, '0'), i));
-                fim.add(new Option((Math.floor((event.target.id * i)/60)).toString().padStart(2, '0')+":"+((event.target.id*i)%60).toString().padEnd(2, '0'), i));
+                let optionIni = new Option((Math.floor((event.target.id * i)/60)).toString().padStart(2, '0')+":"+((event.target.id*i)%60).toString().padEnd(2, '0'), i);
+                let optionFim = new Option((Math.floor((event.target.id * i)/60)).toString().padStart(2, '0')+":"+((event.target.id*i)%60).toString().padEnd(2, '0'), i);
+                optionIni.setAttribute("key", "i"+i);
+                optionFim.setAttribute("key", "f"+i);
+                inicio.add(optionIni);
+                fim.add(optionFim);
             }
         }
         else{
             removeAll(inicio, fim);
             for(let i = 0; i < 24/(event.target.id/60); i++){
-                inicio.add(new Option((Math.floor((event.target.id * i)/60)).toString().padStart(2, '0')+":"+((event.target.id*i)%60).toString().padEnd(2, '0'), i));
-                fim.add(new Option((Math.floor((event.target.id * i)/60)).toString().padStart(2, '0')+":"+((event.target.id*i)%60).toString().padEnd(2, '0'), i));
+                let optionIni = new Option((Math.floor((event.target.id * i)/60)).toString().padStart(2, '0')+":"+((event.target.id*i)%60).toString().padEnd(2, '0'), i);
+                let optionFim = new Option((Math.floor((event.target.id * i)/60)).toString().padStart(2, '0')+":"+((event.target.id*i)%60).toString().padEnd(2, '0'), i);
+                optionIni.setAttribute("key", "i"+i);
+                optionFim.setAttribute("key", "f"+i);
+                inicio.add(optionIni);
+                fim.add(optionFim);
             }
         }
         //
@@ -219,52 +232,100 @@ function tableCreate(linhas, colunas, tipo, intervalo = null) {
 }
 
 function preencherTabela(elemento, intervalo){
+    let arrayAux = [];
     for(let i = 0; i < elemento.rows.length; i++){
         if(i > 0){
             if(intervalo == 60){
-                let x = elemento.rows[i].cells;
-                if(i > 10){
-                    x[0].innerHTML = parseInt(i - 1) + ":00";
+                if(document.querySelector('#fim') && document.querySelector('#inicio')){
+                    for(let pos = parseInt(document.querySelector('#inicio').value); pos <= parseInt(document.querySelector('#fim').value); pos++){
+                        let horario = document.querySelector("[key='f"+pos+"']");
+                        if(!arrayAux.includes(horario.text)){
+                            let x = elemento.rows[i].cells;
+                            x[0].innerHTML = horario.text;
+                            arrayAux.push(horario.text);
+                            break;
+                        }
+                        else{
+                            continue;
+                        }
+                    }
+                }
+                else{
+                    let x = elemento.rows[i].cells;
+                    if(i > 10){
+                        x[0].innerHTML = parseInt(i - 1) + ":00";
+                        continue;
+                    }
+                    x[0].innerHTML = "0" + parseInt(i - 1) + ":00";
                     continue;
                 }
-                x[0].innerHTML = "0" + parseInt(i - 1) + ":00";
-                continue;
             }
             else if(intervalo == 50){
-                let x = elemento.rows[i].cells;
-                if(i == 1){
-                    var d = new Date;
-                    d.setHours(0,0,0,0)
-                    x[0].innerHTML = d.getHours().toString().padStart(2, '0') + ":00";
-                    //x[0].innerHTML = ("0" + new Date(new Date().setHours(0,0,0,0)).getHours()).slice(-2) + ":" + ("0" + new Date(new Date().setHours(0,0,0,0)).getMinutes()).slice(-2);
-                    continue;
+                if(document.querySelector('#fim') && document.querySelector('#inicio')){
+                    for(let pos = parseInt(document.querySelector('#inicio').value); pos <= parseInt(document.querySelector('#fim').value); pos++){
+                        let horario = document.querySelector("[key='f"+pos+"']");
+                        if(!arrayAux.includes(horario.text)){
+                            let x = elemento.rows[i].cells;
+                            x[0].innerHTML = horario.text;
+                            arrayAux.push(horario.text);
+                            break;
+                        }
+                        else{
+                            continue;
+                        }
+                    }
                 }
                 else{
-                    var d = new Date;
-                    d.setHours(0,0,0,0);
-                    for(let j = 0; j < parseInt(i) - 1; j++){
-                        d = new Date(d.getTime() + 50*60000);
+                    let x = elemento.rows[i].cells;
+                    if(i == 1){
+                        var d = new Date;
+                        d.setHours(0,0,0,0)
+                        x[0].innerHTML = d.getHours().toString().padStart(2, '0') + ":00";
+                        //x[0].innerHTML = ("0" + new Date(new Date().setHours(0,0,0,0)).getHours()).slice(-2) + ":" + ("0" + new Date(new Date().setHours(0,0,0,0)).getMinutes()).slice(-2);
+                        continue;
                     }
-                    x[0].innerHTML = d.getHours().toString().padStart(2, '0') + ":" + d.getMinutes().toString().padEnd(2, "0");
+                    else{
+                        var d = new Date;
+                        d.setHours(0,0,0,0);
+                        for(let j = 0; j < parseInt(i) - 1; j++){
+                            d = new Date(d.getTime() + 50*60000);
+                        }
+                        x[0].innerHTML = d.getHours().toString().padStart(2, '0') + ":" + d.getMinutes().toString().padEnd(2, "0");
+                    }
                 }
-                
             }
             else{
-                let x = elemento.rows[i].cells;
-                if(i == 1){
-                    var d = new Date;
-                    d.setHours(0,0,0,0)
-                    x[0].innerHTML = d.getHours().toString().padStart(2, '0') + ":00";
-                    //x[0].innerHTML = ("0" + new Date(new Date().setHours(0,0,0,0)).getHours()).slice(-2) + ":" + ("0" + new Date(new Date().setHours(0,0,0,0)).getMinutes()).slice(-2);
-                    continue;
+                if(document.querySelector('#fim') && document.querySelector('#inicio')){
+                    for(let pos = parseInt(document.querySelector('#inicio').value); pos <= parseInt(document.querySelector('#fim').value); pos++){
+                        let horario = document.querySelector("[key='f"+pos+"']");
+                        if(!arrayAux.includes(horario.text)){
+                            let x = elemento.rows[i].cells;
+                            x[0].innerHTML = horario.text;
+                            arrayAux.push(horario.text);
+                            break;
+                        }
+                        else{
+                            continue;
+                        }
+                    }
                 }
                 else{
-                    var d = new Date;
-                    d.setHours(0,0,0,0);
-                    for(let j = 0; j < parseInt(i) - 1; j++){
-                        d = new Date(d.getTime() + 30*60000);
+                    let x = elemento.rows[i].cells;
+                    if(i == 1){
+                        var d = new Date;
+                        d.setHours(0,0,0,0)
+                        x[0].innerHTML = d.getHours().toString().padStart(2, '0') + ":00";
+                        //x[0].innerHTML = ("0" + new Date(new Date().setHours(0,0,0,0)).getHours()).slice(-2) + ":" + ("0" + new Date(new Date().setHours(0,0,0,0)).getMinutes()).slice(-2);
+                        continue;
                     }
-                    x[0].innerHTML = d.getHours().toString().padStart(2, '0') + ":" + d.getMinutes().toString().padEnd(2, "0");
+                    else{
+                        var d = new Date;
+                        d.setHours(0,0,0,0);
+                        for(let j = 0; j < parseInt(i) - 1; j++){
+                            d = new Date(d.getTime() + 30*60000);
+                        }
+                        x[0].innerHTML = d.getHours().toString().padStart(2, '0') + ":" + d.getMinutes().toString().padEnd(2, "0");
+                    }
                 }
             }
         }
