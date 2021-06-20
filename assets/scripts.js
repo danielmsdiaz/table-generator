@@ -105,11 +105,19 @@ document.addEventListener('input', function (event) {
     }
     else if(event.target.id == 'outros'){
         document.querySelector('#number-columns').readOnly = false;
+        document.querySelector('#number-columns').value = '';
+        //intervalo
         document.querySelector('.radio-intervalo').style.display = 'none';
-        document.querySelector('.range-intervalo').style.display = 'none';
+        document.querySelector('input[name="inter"]:checked').checked = false;
+        //select intervalo
+        document.querySelector('.select-intervalo').style.display = 'none';
+        document.querySelector('#inicio').value = "ph";
+        document.querySelector('#fim').value = "ph";
     }
     else if (event.target.className == "inter"){
-        document.querySelector('.range-intervalo').style.display = 'block';
+        document.querySelector('.select-intervalo').style.display = 'block';
+        document.querySelector('#inicio').value = "ph";
+        document.querySelector('#fim').value = "ph";
         let inputLinhas = document.querySelector('#number-rows');
         validarNumber(inputLinhas);
     }
