@@ -187,6 +187,13 @@ document.addEventListener('input', function (event) {
             }
         }
     }
+    else if (event.target.className == 'numbers'){
+        if(event.target.value <= 0){
+            event.target.value = '';
+            alert('Não é aceito um numero menor/igual que 0');
+            return;
+        }
+    }
     else{
         return;
     }
@@ -212,16 +219,19 @@ function gerarTable(){
                 if(document.querySelector('#inicio').value == "ph" && document.querySelector('#fim').value == "ph"){
                     alert('Escolha um valor para o início e para o fim!')
                     document.getElementById('print').style.display = "none";
+                    document.getElementsByClassName('edit-cell')[0].style.display = "none";
                     return;
                 }
                 else if(document.querySelector('#inicio').value == "ph" && document.querySelector('#fim').value != "ph"){
                     alert('Escolha um valor para o início!');
                     document.getElementById('print').style.display = "none";
+                    document.getElementsByClassName('edit-cell')[0].style.display = "none";
                     return;
                 }
                 else if(document.querySelector('#inicio').value != "ph" && document.querySelector('#fim').value == "ph"){
                     alert('Escolha um valor para o fim!');
                     document.getElementById('print').style.display = "none";
+                    document.getElementsByClassName('edit-cell')[0].style.display = "none";
                     return;
                 }
                 let intervalo = document.querySelector('input[name="inter"]:checked').value;
@@ -231,6 +241,7 @@ function gerarTable(){
         else{
             alert("Escolha um intervalo!");
             document.getElementById('print').style.display = "none";
+            document.getElementsByClassName('edit-cell')[0].style.display = "none";
             return;
         }
     }
@@ -241,16 +252,19 @@ function gerarTable(){
         else if(linhas && !colunas){
             alert("Informe a quantidade de colunas");
             document.getElementById('print').style.display = "none";
+            document.getElementsByClassName('edit-cell')[0].style.display = "none";
             return;
         }
         else if(!linhas && colunas){
             alert("Informe a quantidade de linhas");
             document.getElementById('print').style.display = "none";
+            document.getElementsByClassName('edit-cell')[0].style.display = "none";
             return;
         }
         else{
             alert("Informe a quantidade de linhas e colunas");
             document.getElementById('print').style.display = "none";
+            document.getElementsByClassName('edit-cell')[0].style.display = "none";
             return;
         }
     }

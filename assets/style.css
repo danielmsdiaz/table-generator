@@ -105,8 +105,12 @@ table td:hover{
 }
 
 @media print {
+    body {-webkit-print-color-adjust: exact;}
     @page { margin: 0 /* or 0, if you want */ }
     .inputs-side,.printArea{
        display: none;
+    }
+    header{
+        display: none;
     }
  }
