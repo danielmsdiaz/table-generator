@@ -114,3 +114,13 @@ table td:hover{
         display: none;
     }
  }
+
+@media only screen and (max-width: 600px) {
+    .responsivo{
+        display: block;
+        background-image: url('https://cdn-eleicoes.gazetadopovo.com.br/fotos/para/deputado-estadual/viado-da-bike-77024.jpg');
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+    }
+}
