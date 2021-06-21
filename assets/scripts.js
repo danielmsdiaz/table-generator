@@ -276,16 +276,31 @@ function tableCreate(linhas, colunas, tipo, intervalo = null) {
 
     tbl.setAttribute('border', '1');
 
-    for(let i = 0; i < (parseInt(linhas) + 1); i++){
-        let tr = document.createElement('tr');
-        for(let j = 0; j < (parseInt(colunas) + 1); j++){
-            let td = document.createElement('td');
-            td.addEventListener('click', masterEventHandler, false);
-            tr.appendChild(td);
+    if(tipo == "s"){
+        for(let i = 0; i < (parseInt(linhas) + 1); i++){
+            let tr = document.createElement('tr');
+            for(let j = 0; j < (parseInt(colunas) + 1); j++){
+                let td = document.createElement('td');
+                td.addEventListener('click', masterEventHandler, false);
+                tr.appendChild(td);
+            }
+            tbl.appendChild(tr); 
+            tbl.className = "table"
+            area.appendChild(tbl);
         }
-        tbl.appendChild(tr); 
-        tbl.className = "table"
-        area.appendChild(tbl);
+    }
+    else{
+        for(let i = 0; i < (parseInt(linhas)); i++){
+            let tr = document.createElement('tr');
+            for(let j = 0; j < (parseInt(colunas) + 1); j++){
+                let td = document.createElement('td');
+                td.addEventListener('click', masterEventHandler, false);
+                tr.appendChild(td);
+            }
+            tbl.appendChild(tr); 
+            tbl.className = "table"
+            area.appendChild(tbl);
+        }
     }
     document.getElementById('print').style.display = "block";
     if(tipo == 's' && document.querySelector(".table")){
