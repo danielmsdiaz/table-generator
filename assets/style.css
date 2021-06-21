@@ -47,7 +47,7 @@ header{
 .table-side{
     flex: 3;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
 }
 
@@ -99,3 +99,14 @@ table td:hover{
     display: flex;
     flex-direction: column;
 }
+
+#print{
+    margin-bottom: 10px;
+}
+
+@media print {
+    @page { margin: 0 /* or 0, if you want */ }
+    .inputs-side,.printArea{
+       display: none;
+    }
+ }

@@ -101,14 +101,21 @@ document.addEventListener('input', function (event) {
 	if (event.target.id == 'semanal'){
         document.querySelector('#number-columns').value = 7;
         document.querySelector('#number-columns').readOnly = true;
+        document.querySelector('#number-rows').readOnly = true;
+        document.querySelector('#number-rows').placeholder  = "Calculado no intervalo!";
         document.querySelector('.radio-intervalo').style.display = 'block';
     }
     else if(event.target.id == 'outros'){
         document.querySelector('#number-columns').readOnly = false;
+        document.querySelector('#number-rows').readOnly = false;
+        document.querySelector('#number-rows').value = '';
+        document.querySelector('#number-rows').placeholder  = "";
         document.querySelector('#number-columns').value = '';
         //intervalo
         document.querySelector('.radio-intervalo').style.display = 'none';
-        document.querySelector('input[name="inter"]:checked').checked = false;
+        if(document.querySelector('input[name="inter"]:checked') && document.querySelector('input[name="inter"]:checked').checked == true){
+            document.querySelector('input[name="inter"]:checked').checked = false;
+        }
         //select intervalo
         document.querySelector('.select-intervalo').style.display = 'none';
         document.querySelector('#inicio').value = "ph";
@@ -200,11 +207,52 @@ function gerarTable(){
     let colunas = document.getElementById("number-columns").value;
     let tipo = document.querySelector('input[name="tipo"]:checked').value;
     if(tipo == "s"){
-        let intervalo = document.querySelector('input[name="inter"]:checked').value;
-        tableCreate(linhas, colunas, tipo, intervalo);
+        if(document.querySelector('input[name="inter"]:checked')){
+            if(document.getElementsByClassName('select-intervalo')[0]){
+                if(document.querySelector('#inicio').value == "ph" && document.querySelector('#fim').value == "ph"){
+                    alert('Escolha um valor para o início e para o fim!')
+                    document.getElementById('print').style.display = "none";
+                    return;
+                }
+                else if(document.querySelector('#inicio').value == "ph" && document.querySelector('#fim').value != "ph"){
+                    alert('Escolha um valor para o início!');
+                    document.getElementById('print').style.display = "none";
+                    return;
+                }
+                else if(document.querySelector('#inicio').value != "ph" && document.querySelector('#fim').value == "ph"){
+                    alert('Escolha um valor para o fim!');
+                    document.getElementById('print').style.display = "none";
+                    return;
+                }
+                let intervalo = document.querySelector('input[name="inter"]:checked').value;
+                tableCreate(linhas, colunas, tipo, intervalo);
+            }
+        }
+        else{
+            alert("Escolha um intervalo!");
+            document.getElementById('print').style.display = "none";
+            return;
+        }
     }
     else{
-        tableCreate(linhas, colunas, tipo);
+        if(linhas && colunas){
+            tableCreate(linhas, colunas, tipo);
+        }
+        else if(linhas && !colunas){
+            alert("Informe a quantidade de colunas");
+            document.getElementById('print').style.display = "none";
+            return;
+        }
+        else if(!linhas && colunas){
+            alert("Informe a quantidade de linhas");
+            document.getElementById('print').style.display = "none";
+            return;
+        }
+        else{
+            alert("Informe a quantidade de linhas e colunas");
+            document.getElementById('print').style.display = "none";
+            return;
+        }
     }
 }
 
@@ -225,7 +273,7 @@ function tableCreate(linhas, colunas, tipo, intervalo = null) {
         tbl.className = "table"
         area.appendChild(tbl);
     }
-   
+    document.getElementById('print').style.display = "block";
     if(tipo == 's' && document.querySelector(".table")){
         preencherTabela(document.querySelector(".table"), intervalo);
     }
@@ -375,13 +423,33 @@ function masterEventHandler(){
 
 function salvarCelula(){
     let inputTexto = document.getElementById('text-cell').value;
+    let cor = document.getElementById('cor').value;
     let celulaHidden = document.getElementById('celula-clicada');
     let linha = celulaHidden.getAttribute("linha");
     let coluna = celulaHidden.getAttribute("coluna");
-
     let celula = document.getElementsByClassName("table")[0].rows[linha].cells.item(coluna);
+
+    let fontColor = escolherBackground(cor, '#FFFFFF', '#000000');
     celula.innerHTML = inputTexto;
+    celula.style.color = fontColor;
+    celula.style.backgroundColor = cor;
 
     let areaEdit = document.getElementsByClassName('edit-cell')[0];
     areaEdit.style.display = "none";
 }
+
+function escolherBackground(bgColor, lightColor, darkColor) {
+    let color = (bgColor.charAt(0) === '#') ? bgColor.substring(1, 7) : bgColor;
+    let r = parseInt(color.substring(0, 2), 16); // hexToR
+    let g = parseInt(color.substring(2, 4), 16); // hexToG
+    let b = parseInt(color.substring(4, 6), 16); // hexToB
+    let uicolors = [r / 255, g / 255, b / 255];
+    let c = uicolors.map((col) => {
+      if (col <= 0.03928) {
+        return col / 12.92;
+      }
+      return Math.pow((col + 0.055) / 1.055, 2.4);
+    });
+    let L = (0.2126 * c[0]) + (0.7152 * c[1]) + (0.0722 * c[2]);
+    return (L > 0.179) ? darkColor : lightColor;
+  }
