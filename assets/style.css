@@ -114,28 +114,3 @@ table td:hover{
         display: none;
     }
  }
-
- @media (max-width:320px)  {
-     section, header{
-         display: none;
-     }
-     .responsivo{
-         display: block!important;
-     }
- }
- @media (max-width:481px)  {
-    section, header{
-        display: none;
-    }
-    .responsivo{
-        display: block!important;
-    }
- }
- @media (max-width:641px)  {
-    section, header{
-        display: none;
-    }
-    .responsivo{
-        display: block!important;
-    }
- }
