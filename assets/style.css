@@ -114,6 +114,6 @@ table td:hover{
         display: none;
     }
     .edit-cell{
-        display: none;
+        display: none!important;
     }
  }
